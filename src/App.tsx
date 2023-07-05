@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { fetchImgList } from './utils/api';
+import Modal from './components/Modal.tsx';
 
 const StyleContainer = styled.div`
   display: flex;
@@ -107,11 +108,21 @@ interface IImgList {
 function App() {
   const [keyword, setKeyword] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [isInstructionModal, setIsInstructionModal] = useState(false);
+  const [isFaqModal, setIsFaqModal] = useState(false);
   const [list, setList] = useState<IImgList[]>();
   const [currentImg, setCurrentImg] = useState<IImgList>();
   const [alarm, setAlarm] = useState(false);
 
   const selectRef = useRef<HTMLSelectElement | null>(null);
+
+  const handleInstruction = () => {
+    setIsInstructionModal(true);
+  };
+
+  const handleFaq = () => {
+    setIsFaqModal(true);
+  };
 
   const handleSub = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -159,12 +170,49 @@ function App() {
     if (keyword !== '') updateImg(keyword);
   }, [keyword]);
 
+  const offInstructionModal = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (e.currentTarget === e.target) {
+      setIsInstructionModal(false);
+    }
+  }, []);
+
+  const offFaqModal = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (e.currentTarget === e.target) {
+      setIsFaqModal(false);
+    }
+  }, []);
+
+  const instructionData = [
+    { content: '카테고리를 고른 뒤 선택 버튼을 눌러줍니다.' },
+    { content: '마음의 준비를 합니다' },
+    { content: 'Find 버튼을 눌러 몇 명이 나왔는지 확인합니다.' },
+    { content: '많은 사람 혹은 적은 사람에 따라 결과를 정합니다' },
+  ];
+
+  const faqData = [
+    {
+      content:
+        '규칙은 어떻게 되나요? → 사진속 카테고리가 많이 나오거나 적게 나온 사람이 당첨입니다.',
+    },
+    {
+      content:
+        '사람 얼굴이 반만 나왔어요! → 게임 전 미리 규칙을 정하고 게임을 하시는걸 추천합니다. 예를들어 사람 얼굴이 80% 이상 나오면 OK',
+    },
+
+    {
+      content: '숫자 카테고리 중 숫자가 여러개 나오면 어떻게 하나요? → 가장 큰 수로 설정합니다 ',
+    },
+  ];
+
   return (
     <StyleContainer>
       <StyleGameBox>
         <StyleHeader>
           <StyleTitle>복불복 게임</StyleTitle>
-          <StyleBtnBox></StyleBtnBox>
+          <StyleBtnBox>
+            <StyleBtn onClick={handleInstruction}>설명서 보러가기</StyleBtn>
+            <StyleBtn onClick={handleFaq}>FAQ</StyleBtn>
+          </StyleBtnBox>
 
           <form onSubmit={handleSub}>
             <select name="category" form="myForm" onChange={handleOnChange} ref={selectRef}>
@@ -185,6 +233,13 @@ function App() {
           {currentImg && <img src={currentImg?.urls.thumb} alt={currentImg?.alt_description} />}
         </StyleMain>
       </StyleGameBox>
+      <Modal
+        offModal={offInstructionModal}
+        isModalOpened={isInstructionModal}
+        title="설명서"
+        data={instructionData}
+      />
+      <Modal offModal={offFaqModal} isModalOpened={isFaqModal} title="FAQ" data={faqData} />
     </StyleContainer>
   );
 }
