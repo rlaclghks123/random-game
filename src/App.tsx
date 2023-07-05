@@ -5,7 +5,6 @@ import Modal from './components/Modal.tsx';
 
 const StyleContainer = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -15,7 +14,7 @@ const StyleContainer = styled.div`
 `;
 
 const StyleGameBox = styled.div`
-  width: 700px;
+  width: 768px;
   height: 500px;
   background-color: #d4b995;
 `;
@@ -72,8 +71,12 @@ const StyleMain = styled.div`
   div {
     width: 200px;
     height: 200px;
-    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
   img {
     width: 200px;
     height: 200px;
@@ -101,7 +104,6 @@ interface IImgList {
   urls: {
     thumb: string;
   };
-
   alt_description: string;
 }
 
@@ -171,15 +173,11 @@ function App() {
   }, [keyword]);
 
   const offInstructionModal = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    if (e.currentTarget === e.target) {
-      setIsInstructionModal(false);
-    }
+    if (e.currentTarget === e.target) setIsInstructionModal(false);
   }, []);
 
   const offFaqModal = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    if (e.currentTarget === e.target) {
-      setIsFaqModal(false);
-    }
+    if (e.currentTarget === e.target) setIsFaqModal(false);
   }, []);
 
   const instructionData = [
