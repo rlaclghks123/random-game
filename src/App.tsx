@@ -19,7 +19,7 @@ const StyleGameBox = styled.div`
   background-color: #d4b995;
 `;
 
-const StyleHeader = styled.div`
+const StyleHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +32,7 @@ const StyleHeader = styled.div`
   }
 `;
 
-const StyleBtnBox = styled.div`
+const StyleAside = styled.aside`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -57,7 +57,7 @@ const StyleTitle = styled.div`
     Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 
-const StyleMain = styled.div`
+const StyleMain = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -181,7 +181,7 @@ function App() {
   }, []);
 
   const instructionData = [
-    { content: '카테고리를 고른 뒤 선택 버튼을 눌러줍니다.' },
+    { content: '복불복 게임의 카테고리를 고른 뒤 선택 버튼을 눌러줍니다.' },
     { content: '마음의 준비를 합니다' },
     { content: 'Find 버튼을 눌러 몇 명이 나왔는지 확인합니다.' },
     { content: '많은 사람 혹은 적은 사람에 따라 결과를 정합니다' },
@@ -190,11 +190,11 @@ function App() {
   const faqData = [
     {
       content:
-        '규칙은 어떻게 되나요? → 사진속 카테고리가 많이 나오거나 적게 나온 사람이 당첨입니다.',
+        '복불복 게임 규칙은 어떻게 되나요? → 사진속 카테고리가 많이 나오거나 적게 나온 사람이 당첨입니다.',
     },
     {
       content:
-        '사람 얼굴이 반만 나왔어요! → 게임 전 미리 규칙을 정하고 게임을 하시는걸 추천합니다. 예를들어 사람 얼굴이 80% 이상 나오면 OK',
+        '사람 얼굴이 반만 나왔어요! → 복불복 게임 전 미리 규칙을 정하고 게임을 하시는걸 추천합니다. 예를들어 사람 얼굴이 80% 이상 나오면 OK',
     },
 
     {
@@ -207,10 +207,10 @@ function App() {
       <StyleGameBox>
         <StyleHeader>
           <StyleTitle>복불복 게임</StyleTitle>
-          <StyleBtnBox>
-            <StyleBtn onClick={handleInstruction}>설명서 보러가기</StyleBtn>
+          <StyleAside>
+            <StyleBtn onClick={handleInstruction}>복불복 게임 설명서</StyleBtn>
             <StyleBtn onClick={handleFaq}>FAQ</StyleBtn>
-          </StyleBtnBox>
+          </StyleAside>
 
           <form onSubmit={handleSub}>
             <select name="category" form="myForm" onChange={handleOnChange} ref={selectRef}>
@@ -234,10 +234,15 @@ function App() {
       <Modal
         offModal={offInstructionModal}
         isModalOpened={isInstructionModal}
-        title="설명서"
+        title="복불복 게임 설명서"
         data={instructionData}
       />
-      <Modal offModal={offFaqModal} isModalOpened={isFaqModal} title="FAQ" data={faqData} />
+      <Modal
+        offModal={offFaqModal}
+        isModalOpened={isFaqModal}
+        title="복불복 게임 FAQ"
+        data={faqData}
+      />
     </StyleContainer>
   );
 }
