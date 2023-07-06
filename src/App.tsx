@@ -16,19 +16,45 @@ const StyleContainer = styled.div`
 const StyleGameBox = styled.div`
   width: 768px;
   height: 500px;
-  background-color: #d4b995;
+  border-radius: 15px;
+  background-color: #225b38;
+  box-shadow: 1px 1px 3px 1px #dadce0;
 `;
 
 const StyleHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 0px;
+  justify-content: center;
 
+  height: 20%;
   position: relative;
+`;
 
-  form {
-    margin: 10px 0px;
+const StyleForm = styled.form`
+  margin: 10px 0px;
+  font-weight: 900;
+  font-family: Georgia, 'Times New Roman', serif;
+
+  select {
+    border: none;
+    color: white;
+    border-radius: 5px;
+    background-color: #cd8542;
+  }
+
+  input {
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    color: white;
+    background-color: #cd8542;
+    cursor: pointer;
+
+    &:hover {
+      color: #cd8542;
+      background-color: white;
+    }
   }
 `;
 
@@ -36,25 +62,28 @@ const StyleAside = styled.aside`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 5px;
-  right: 5px;
-
-  button {
-    margin-bottom: 5px;
-  }
+  right: 15px;
 `;
 
 const StyleMessage = styled.div`
   font-size: 12px;
-  color: #a17955;
   font-weight: 800;
+  color: #cd8542;
+  position: absolute;
+  bottom: 5px;
+`;
+
+const StyleCheerMessage = styled(StyleMessage)`
+  font-size: 30px;
+  font-weight: 900;
+  font-family: Georgia, 'Times New Roman', serif;
 `;
 
 const StyleTitle = styled.div`
   font-size: 30px;
-  font-weight: 700;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 900;
+  color: white;
+  font-family: Georgia, 'Times New Roman', serif;
 `;
 
 const StyleMain = styled.main`
@@ -64,17 +93,21 @@ const StyleMain = styled.main`
   justify-content: center;
 
   width: 100%;
-  height: 70%;
-
+  height: 80%;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 
   div {
-    width: 200px;
-    height: 200px;
-
+    height: 80%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  button {
+    position: absolute;
+    top: 10px;
   }
 
   img {
@@ -86,16 +119,23 @@ const StyleMain = styled.main`
 `;
 
 const StyleBtn = styled.button`
-  border-color: transparent;
-  border-radius: 10px;
-  padding: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  margin-bottom: 5px;
 
-  margin-bottom: 50px;
+  border: none;
+  border-radius: 10px;
+
+  background-color: #cd8542;
+  color: white;
+
+  font-weight: 900;
+  font-family: Georgia, 'Times New Roman', serif;
+
   cursor: pointer;
 
   &:hover {
-    opacity: 0.6;
+    color: #cd8542;
+    background-color: white;
   }
 `;
 
@@ -208,11 +248,11 @@ function App() {
         <StyleHeader>
           <StyleTitle>복불복 게임</StyleTitle>
           <StyleAside>
-            <StyleBtn onClick={handleInstruction}>복불복 게임 설명서</StyleBtn>
+            <StyleBtn onClick={handleInstruction}>Guide</StyleBtn>
             <StyleBtn onClick={handleFaq}>FAQ</StyleBtn>
           </StyleAside>
 
-          <form onSubmit={handleSub}>
+          <StyleForm onSubmit={handleSub}>
             <select name="category" form="myForm" onChange={handleOnChange} ref={selectRef}>
               <option value="">선택해주세요</option>
               <option value="people">People</option>
@@ -222,13 +262,15 @@ function App() {
               <option value="number">Number</option>
             </select>
             <input type="submit" value="선택"></input>
-          </form>
+          </StyleForm>
           {alarm && <StyleMessage>선택을 눌러주세요</StyleMessage>}
         </StyleHeader>
         <StyleMain>
-          {keyword !== '' && <StyleBtn onClick={handleClick}>{`🔍 Find ${keyword}`}</StyleBtn>}
-          {keyword !== '' && !currentImg && <div>Good Luck!</div>}
-          {currentImg && <img src={currentImg?.urls.thumb} alt={currentImg?.alt_description} />}
+          <div>
+            {keyword !== '' && <StyleBtn onClick={handleClick}>{`🔍 Find ${keyword}`}</StyleBtn>}
+            {keyword !== '' && !currentImg && <StyleCheerMessage>Good Luck!</StyleCheerMessage>}
+            {currentImg && <img src={currentImg?.urls.thumb} alt={currentImg?.alt_description} />}
+          </div>
         </StyleMain>
       </StyleGameBox>
       <Modal
