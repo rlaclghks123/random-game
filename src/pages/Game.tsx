@@ -1,20 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
-import { fetchImgList } from '../utils/api.ts';
-import { IImgList } from '../types/types.ts';
-import MainPage from './MainPage.tsx';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
+import MainPage from './MainPage.tsx';
+import { fetchGifList } from '../utils/api.ts';
+import { IImgList } from '../types/types.ts';
 
 const StyleHeader = styled.div`
   padding: 15px;
+  width: 100%;
+  display: flex;
 
+  align-items: center;
+  div {
+    width: 33%;
+  }
+`;
+
+const StyleBackBtnBox = styled.div`
   a {
-    position: absolute;
-    left: 10px;
-    top: 10px;
+    width: 10%;
+    margin-left: 20px;
     padding: 10px;
-    font-size: 20px;
     border-radius: 5px;
+    font-size: 20px;
     background-color: #cd8542;
     color: white;
 
@@ -23,10 +31,6 @@ const StyleHeader = styled.div`
       background-color: white;
     }
   }
-`;
-
-const StyleHeaderContents = styled.div`
-  position: relative;
 `;
 
 const StyleTitle = styled.div`
@@ -34,45 +38,7 @@ const StyleTitle = styled.div`
   font-weight: 900;
   font-family: Georgia, 'Times New Roman', serif;
   color: white;
-`;
-
-const StyleForm = styled.form`
-  display: flex;
-  justify-content: center;
-
-  margin: 10px 0px;
-
-  font-weight: 900;
-  font-family: Georgia, 'Times New Roman', serif;
-
-  select {
-    border: none;
-    color: white;
-    border-radius: 5px;
-    background-color: #cd8542;
-  }
-
-  input {
-    border: none;
-    border-radius: 5px;
-    margin-left: 5px;
-    color: white;
-    background-color: #cd8542;
-    cursor: pointer;
-
-    &:hover {
-      color: #cd8542;
-      background-color: white;
-    }
-  }
-`;
-
-const StyleMessage = styled.div`
-  font-size: 12px;
-  font-weight: 800;
-  position: absolute;
-  padding-left: 10%;
-  color: #cd8542;
+  text-align: center;
 `;
 
 const StyleMain = styled.div`
@@ -91,25 +57,39 @@ const StyleMain = styled.div`
   }
 `;
 
-const StyleBtn = styled.button`
-  top: 10px;
-  padding: 8px;
+const StyleFormContainer = styled.div``;
 
-  border: none;
-  border-radius: 10px;
+const StyleForm = styled.form`
+  display: flex;
+  justify-content: center;
 
-  background-color: #cd8542;
-  color: white;
+  margin: 10px 0px;
 
   font-weight: 900;
   font-family: Georgia, 'Times New Roman', serif;
 
-  cursor: pointer;
+  input {
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: #cd8542;
+    cursor: pointer;
 
-  &:hover {
-    color: #cd8542;
-    background-color: white;
+    &:focus {
+      border: none;
+      outline: none;
+      background-color: white;
+      color: #cd8542;
+    }
   }
+`;
+
+const StyleMessage = styled.div`
+  font-size: 12px;
+  font-weight: 800;
+
+  color: #cd8542;
 `;
 
 const StyleCountBox = styled.div`
@@ -118,24 +98,31 @@ const StyleCountBox = styled.div`
 `;
 
 function Game() {
-  const [keyword, setKeyword] = useState('');
-  const [list, setList] = useState<IImgList[]>([]);
+  const [list, setList] = useState([]);
 
-  const [currentImg, setCurrentImg] = useState<IImgList>();
+  const [currentImg, setCurrentImg] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [alarm, setAlarm] = useState('카테고리를 선택해주세요');
-
   const [isCounting, setIsCounting] = useState(false);
   const [countdown, setCountdown] = useState(3);
 
-  const selectRef = useRef<HTMLSelectElement | null>(null);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setKeyword(inputValue);
+    const regex = /^[1-9]$|^[1-4][0-9]$|^50$/;
+    const inputElement = e.currentTarget.elements[0] as HTMLInputElement;
+
+    if (!regex.test(inputElement.value)) {
+      alert('1에서 50까지의 숫자만 입력해주세요.');
+      setInputValue('');
+      return;
+    }
+
+    updateImg();
+    setCountdown(3);
+    setIsCounting(true);
+    setInputValue('');
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
@@ -144,38 +131,10 @@ function Game() {
     return list[random];
   };
 
-  const handleClick = () => {
-    setCountdown(3);
-    setIsCounting(true);
+  const updateImg = async () => {
+    const result = await fetchGifList();
+    setList(result.data);
   };
-
-  const updateImg = async (keyword: string) => {
-    const result = await fetchImgList(keyword);
-    setList(result);
-  };
-
-  useEffect(() => {
-    const handleFocus = () => {
-      setAlarm('선택을 눌러주세요');
-    };
-
-    const handleBlur = () => {
-      setAlarm('');
-    };
-    const current = selectRef.current;
-
-    current?.addEventListener('focus', handleFocus);
-    current?.addEventListener('blur', handleBlur);
-
-    return () => {
-      current?.removeEventListener('focus', handleFocus);
-      current?.removeEventListener('blur', handleBlur);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (keyword !== '') updateImg(keyword);
-  }, [keyword]);
 
   useEffect(() => {
     if (isCounting) {
@@ -198,37 +157,27 @@ function Game() {
   return (
     <MainPage>
       <StyleHeader>
-        <Link to={'/'}>{'＜'}</Link>
-        <StyleHeaderContents>
-          <StyleTitle>복불복 게임</StyleTitle>
-
-          <StyleForm onSubmit={handleSubmit}>
-            <select name="category" form="myForm" onChange={handleOnChange} ref={selectRef}>
-              <option value="">선택해주세요</option>
-              <option value="people">People</option>
-              <option value="dogs">Dogs</option>
-              <option value="birds">Birds</option>
-              <option value="chairs">Chairs</option>
-              <option value="number">Number</option>
-            </select>
-            <input type="submit" value="선택"></input>
-          </StyleForm>
-          <StyleMessage>{alarm}</StyleMessage>
-        </StyleHeaderContents>
+        <StyleBackBtnBox>
+          <Link to={'/'}>{'＜'}</Link>
+        </StyleBackBtnBox>
+        <StyleTitle>복불복 게임</StyleTitle>
       </StyleHeader>
 
-      {keyword !== '' && (
-        <StyleMain>
-          {isCounting ? (
-            <StyleCountBox>{countdown}</StyleCountBox>
-          ) : (
-            <>
-              <StyleBtn onClick={handleClick}>{`🔍 Find ${keyword}`}</StyleBtn>
-              {currentImg && <img src={currentImg?.urls.thumb} alt={currentImg?.alt_description} />}
-            </>
-          )}
-        </StyleMain>
-      )}
+      <StyleMain>
+        {isCounting ? (
+          <StyleCountBox>{countdown}</StyleCountBox>
+        ) : (
+          <>
+            <StyleFormContainer>
+              <StyleForm onSubmit={handleSubmit}>
+                <input value={inputValue} onChange={handleOnChange} />
+              </StyleForm>
+              <StyleMessage>{'1부터 50까지의 숫자를 입력'}</StyleMessage>
+            </StyleFormContainer>
+            {currentImg && <img src={currentImg?.images?.original?.url} alt={'GIF'} />}
+          </>
+        )}
+      </StyleMain>
     </MainPage>
   );
 }

@@ -1,7 +1,7 @@
 export interface IImgList {
-  id: string;
-  urls: {
-    thumb: string;
+  images?: {
+    original?: {
+      url: string;
+    };
   };
-  alt_description: string;
 }

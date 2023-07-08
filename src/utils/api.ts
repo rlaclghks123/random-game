@@ -16,3 +16,12 @@ export const fetchImgList = async (keyword: string) => {
   const result = await fetchData(UNSPLASH_URL);
   return result;
 };
+
+export const fetchGifList = async () => {
+  const GIPHY_URL = `https://api.giphy.com/v1/gifs/search?q=people&api_key=${
+    import.meta.env.VITE_GIPHY_API_KEY
+  }&limit=50`;
+  const result = await fetch(GIPHY_URL);
+  const json = result.json();
+  return json;
+};
