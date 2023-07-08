@@ -3,9 +3,29 @@ import { styled } from 'styled-components';
 import { fetchImgList } from '../utils/api.ts';
 import { IImgList } from '../types/types.ts';
 import MainPage from './MainPage.tsx';
+import { Link } from 'react-router-dom';
 
 const StyleHeader = styled.div`
   padding: 15px;
+
+  a {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #cd8542;
+    color: white;
+
+    &:hover {
+      color: #cd8542;
+      background-color: white;
+    }
+  }
+`;
+
+const StyleHeaderContents = styled.div`
   position: relative;
 `;
 
@@ -92,24 +112,25 @@ const StyleBtn = styled.button`
   }
 `;
 
-const StyleCheerMessage = styled.div`
-  color: #cd8542;
-  font-size: 30px;
-  font-weight: 900;
-  font-family: Georgia, 'Times New Roman', serif;
-  height: 200px;
+const StyleCountBox = styled.div`
+  color: white;
+  font-size: 50px;
 `;
 
 function Game() {
   const [keyword, setKeyword] = useState('');
-  const [inputValue, setInputValue] = useState('');
-  const [list, setList] = useState<IImgList[]>();
+  const [list, setList] = useState<IImgList[]>([]);
+
   const [currentImg, setCurrentImg] = useState<IImgList>();
+  const [inputValue, setInputValue] = useState('');
   const [alarm, setAlarm] = useState('카테고리를 선택해주세요');
+
+  const [isCounting, setIsCounting] = useState(false);
+  const [countdown, setCountdown] = useState(3);
 
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
-  const handleSub = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setKeyword(inputValue);
   };
@@ -124,7 +145,8 @@ function Game() {
   };
 
   const handleClick = () => {
-    if (list) setCurrentImg(getRandomImg(list));
+    setCountdown(3);
+    setIsCounting(true);
   };
 
   const updateImg = async (keyword: string) => {
@@ -155,29 +177,58 @@ function Game() {
     if (keyword !== '') updateImg(keyword);
   }, [keyword]);
 
+  useEffect(() => {
+    if (isCounting) {
+      if (countdown === 0) {
+        setCurrentImg(getRandomImg(list));
+        setIsCounting(false);
+        return;
+      }
+
+      const timer = setTimeout(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [isCounting, countdown, list]);
+
   return (
     <MainPage>
       <StyleHeader>
-        <StyleTitle>복불복 게임</StyleTitle>
+        <Link to={'/'}>{'＜'}</Link>
+        <StyleHeaderContents>
+          <StyleTitle>복불복 게임</StyleTitle>
 
-        <StyleForm onSubmit={handleSub}>
-          <select name="category" form="myForm" onChange={handleOnChange} ref={selectRef}>
-            <option value="">선택해주세요</option>
-            <option value="people">People</option>
-            <option value="dogs">Dogs</option>
-            <option value="birds">Birds</option>
-            <option value="chairs">Chairs</option>
-            <option value="number">Number</option>
-          </select>
-          <input type="submit" value="선택"></input>
-        </StyleForm>
-        <StyleMessage>{alarm}</StyleMessage>
+          <StyleForm onSubmit={handleSubmit}>
+            <select name="category" form="myForm" onChange={handleOnChange} ref={selectRef}>
+              <option value="">선택해주세요</option>
+              <option value="people">People</option>
+              <option value="dogs">Dogs</option>
+              <option value="birds">Birds</option>
+              <option value="chairs">Chairs</option>
+              <option value="number">Number</option>
+            </select>
+            <input type="submit" value="선택"></input>
+          </StyleForm>
+          <StyleMessage>{alarm}</StyleMessage>
+        </StyleHeaderContents>
       </StyleHeader>
-      <StyleMain>
-        {keyword !== '' && <StyleBtn onClick={handleClick}>{`🔍 Find ${keyword}`}</StyleBtn>}
-        {keyword !== '' && !currentImg && <StyleCheerMessage>Good Luck!</StyleCheerMessage>}
-        {currentImg && <img src={currentImg?.urls.thumb} alt={currentImg?.alt_description} />}
-      </StyleMain>
+
+      {keyword !== '' && (
+        <StyleMain>
+          {isCounting ? (
+            <StyleCountBox>{countdown}</StyleCountBox>
+          ) : (
+            <>
+              <StyleBtn onClick={handleClick}>{`🔍 Find ${keyword}`}</StyleBtn>
+              {currentImg && <img src={currentImg?.urls.thumb} alt={currentImg?.alt_description} />}
+            </>
+          )}
+        </StyleMain>
+      )}
     </MainPage>
   );
 }
