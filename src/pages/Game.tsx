@@ -100,7 +100,7 @@ const StyleCountBox = styled.div`
 function Game() {
   const [list, setList] = useState([]);
 
-  const [currentImg, setCurrentImg] = useState('');
+  const [currentImg, setCurrentImg] = useState<IImgList | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [isCounting, setIsCounting] = useState(false);
   const [countdown, setCountdown] = useState(3);
@@ -126,9 +126,10 @@ function Game() {
     setInputValue(e.target.value);
   };
 
-  const getRandomImg = (list: IImgList[]) => {
-    const random = Math.floor(Math.random() * list.length);
-    return list[random];
+  const getRandomImg = (list: IImgList[]): IImgList | null => {
+    if (list.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * list.length);
+    return list[randomIndex];
   };
 
   const updateImg = async () => {
@@ -174,7 +175,8 @@ function Game() {
               </StyleForm>
               <StyleMessage>{'1부터 50까지의 숫자를 입력'}</StyleMessage>
             </StyleFormContainer>
-            {currentImg && <img src={currentImg?.images?.original?.url} alt={'GIF'} />}
+
+            {currentImg && <img src={currentImg.images?.original?.url} alt={'GIF'} />}
           </>
         )}
       </StyleMain>
