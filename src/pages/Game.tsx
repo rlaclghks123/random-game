@@ -18,6 +18,11 @@ const StyleHeader = styled.div`
 
 const StyleBackBtnBox = styled.div`
   a {
+    @media screen and (max-width: 768px) {
+      padding: 5px;
+      font-size: 12px;
+    }
+
     width: 10%;
     margin-left: 20px;
     padding: 10px;
@@ -34,10 +39,21 @@ const StyleBackBtnBox = styled.div`
 `;
 
 const StyleTitle = styled.div`
+  @media screen and (max-width: 320px) {
+    span {
+      font-size: 16px;
+      color: red;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
+
   font-size: 30px;
   font-weight: 900;
   font-family: Georgia, 'Times New Roman', serif;
-  color: white;
+  color: red;
   text-align: center;
 `;
 
@@ -161,7 +177,9 @@ function Game() {
         <StyleBackBtnBox>
           <Link to={'/'}>{'＜'}</Link>
         </StyleBackBtnBox>
-        <StyleTitle>복불복 게임</StyleTitle>
+        <StyleTitle>
+          <span>복불복 게임</span>
+        </StyleTitle>
       </StyleHeader>
 
       <StyleMain>

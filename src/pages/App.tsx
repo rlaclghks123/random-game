@@ -9,10 +9,19 @@ const StyleHeader = styled.div`
 `;
 
 const StyleTitle = styled.div`
+  @media screen and (max-width: 320px) {
+    span {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
   font-size: 30px;
   font-weight: 900;
   font-family: Georgia, 'Times New Roman', serif;
-  color: white;
+  color: red;
 `;
 
 const StyleMain = styled.div`
@@ -123,7 +132,9 @@ const App = () => {
   return (
     <MainPage>
       <StyleHeader>
-        <StyleTitle>복불복 게임</StyleTitle>
+        <StyleTitle>
+          <span>복불복 게임</span>
+        </StyleTitle>
       </StyleHeader>
       <StyleMain>
         <MoveBox>
