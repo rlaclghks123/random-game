@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import MainPage from './MainPage.tsx';
 import { fetchGifList } from '../utils/api.ts';
 import { IImgList } from '../types/types.ts';
+
+import Error from '../components/Error.tsx';
 
 const StyleHeader = styled.div`
   padding: 15px;
@@ -120,8 +122,9 @@ function Game() {
   const [inputValue, setInputValue] = useState('');
   const [isCounting, setIsCounting] = useState(false);
   const [countdown, setCountdown] = useState(3);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const regex = /^[1-9]$|^[1-4][0-9]$|^50$/;
     const inputElement = e.currentTarget.elements[0] as HTMLInputElement;
@@ -136,7 +139,7 @@ function Game() {
     setCountdown(3);
     setIsCounting(true);
     setInputValue('');
-  };
+  }, []);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -150,8 +153,14 @@ function Game() {
 
   const updateImg = async () => {
     const result = await fetchGifList();
-    setList(result.data);
+    console.log(result);
+    if (result.meta.status !== 200) setError(result.meta.status);
+    else setList(result.data);
   };
+
+  useEffect(() => {
+    updateImg();
+  }, []);
 
   useEffect(() => {
     if (isCounting) {
@@ -182,22 +191,25 @@ function Game() {
         </StyleTitle>
       </StyleHeader>
 
-      <StyleMain>
-        {isCounting ? (
-          <StyleCountBox>{countdown}</StyleCountBox>
-        ) : (
-          <>
-            <StyleFormContainer>
-              <StyleForm onSubmit={handleSubmit}>
-                <input value={inputValue} onChange={handleOnChange} />
-              </StyleForm>
-              <StyleMessage>{'1부터 50까지의 숫자를 입력'}</StyleMessage>
-            </StyleFormContainer>
-
-            {currentImg && <img src={currentImg.images?.original?.url} alt={'GIF'} />}
-          </>
-        )}
-      </StyleMain>
+      {error ? (
+        <Error errorCode={error} />
+      ) : (
+        <StyleMain>
+          {isCounting ? (
+            <StyleCountBox>{countdown}</StyleCountBox>
+          ) : (
+            <>
+              <StyleFormContainer>
+                <StyleForm onSubmit={handleSubmit}>
+                  <input value={inputValue} onChange={handleOnChange} maxLength={2} />
+                </StyleForm>
+                <StyleMessage>{'1부터 50까지의 숫자를 입력'}</StyleMessage>
+              </StyleFormContainer>
+              {currentImg && <img src={currentImg.images?.original?.url} alt={'GIF'} />}
+            </>
+          )}
+        </StyleMain>
+      )}
     </MainPage>
   );
 }
