@@ -120,7 +120,7 @@ const Error: React.FC<ErrorProps> = ({ errorCode }) => {
 
         <div>
           <label>Message</label>
-          <input name="message" defaultValue={ERROR_CODE[errorCode]} disabled={true} />
+          <input name="message" defaultValue={ERROR_CODE[errorCode]} readOnly />
         </div>
 
         <div>
