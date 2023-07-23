@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Game from '../index';
 import { ERROR_CODE } from '../../../components/Error/index';
@@ -138,5 +138,95 @@ describe('Giphy API test', () => {
 
     const inputElement = await screen.findByLabelText('Message');
     expect(inputElement).toHaveValue(ERROR_CODE[STATUS_CODE]);
+  });
+});
+
+describe('1~50까지의 숫자를 입력시 count 및 img 테스트', () => {
+  test('1~50까지의 숫자 입력시 테스트', async () => {
+    render(
+      <MemoryRouter>
+        <Game />
+      </MemoryRouter>
+    );
+
+    const inputElement = screen.getByRole('input');
+    fireEvent.change(inputElement, { target: { value: '5' } });
+
+    const formElement = screen.getByRole('form');
+    fireEvent.submit(formElement);
+
+    await waitFor(() => {
+      expect(screen.getByText(3)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(2)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(1)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(0)).toBeInTheDocument();
+    });
+
+    await waitFor(async () => {
+      expect(await screen.findByAltText('GIF')).toBeInTheDocument();
+    });
+  });
+
+  test('1~50까지의 숫자가 아닌 다른 값 "0" 입력시 카운트 시작 안됨 테스트', async () => {
+    render(
+      <MemoryRouter>
+        <Game />
+      </MemoryRouter>
+    );
+
+    const inputElement = screen.getByRole('input');
+    fireEvent.change(inputElement, { target: { value: '0' } });
+
+    const formElement = screen.getByRole('form');
+    fireEvent.submit(formElement);
+
+    await waitFor(() => {
+      expect(screen.queryByText(3)).not.toBeInTheDocument();
+    });
+  });
+
+  test('1~50까지의 숫자가 아닌 빈값("") 입력시 카운트 시작 안됨 테스트', async () => {
+    render(
+      <MemoryRouter>
+        <Game />
+      </MemoryRouter>
+    );
+
+    const inputElement = screen.getByRole('input');
+    fireEvent.change(inputElement, { target: { value: '' } });
+
+    const formElement = screen.getByRole('form');
+    fireEvent.submit(formElement);
+
+    await waitFor(() => {
+      expect(screen.queryByText(3)).not.toBeInTheDocument();
+    });
+  });
+
+  test('1~50까지의 숫자가 아닌 문자 ("O") 입력시 카운트 시작 안됨 테스트', async () => {
+    render(
+      <MemoryRouter>
+        <Game />
+      </MemoryRouter>
+    );
+
+    const inputElement = screen.getByRole('input');
+    fireEvent.change(inputElement, { target: { value: 'O' } });
+
+    const formElement = screen.getByRole('form');
+    fireEvent.submit(formElement);
+
+    await waitFor(() => {
+      expect(screen.queryByText(3)).not.toBeInTheDocument();
+    });
   });
 });

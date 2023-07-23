@@ -94,7 +94,7 @@ function Game() {
           ) : (
             <>
               <StyleFormContainer>
-                <StyleForm onSubmit={handleSubmit}>
+                <StyleForm onSubmit={handleSubmit} role="form">
                   <input role="input" value={inputValue} onChange={handleOnChange} maxLength={2} />
                 </StyleForm>
                 <StyleMessage>{'1부터 50까지의 숫자를 입력해주세요'}</StyleMessage>
