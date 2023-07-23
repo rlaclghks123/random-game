@@ -50,8 +50,8 @@ function Game() {
 
   const updateImg = async () => {
     const result = await fetchGifList();
-    if (result.meta.status !== 200) setError(result.meta.status);
-    else setList(result.data);
+    if (result && result?.status !== 200) setError(result.status);
+    else setList(result?.data.data);
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ function Game() {
             <>
               <StyleFormContainer>
                 <StyleForm onSubmit={handleSubmit}>
-                  <input value={inputValue} onChange={handleOnChange} maxLength={2} />
+                  <input role="input" value={inputValue} onChange={handleOnChange} maxLength={2} />
                 </StyleForm>
                 <StyleMessage>{'1부터 50까지의 숫자를 입력해주세요'}</StyleMessage>
               </StyleFormContainer>

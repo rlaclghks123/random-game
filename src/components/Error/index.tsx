@@ -52,7 +52,7 @@ const StyleForm = styled.form`
   }
 `;
 
-const ERROR_CODE: { [key: string]: string } = {
+export const ERROR_CODE: { [key: string]: string } = {
   '200': 'Everything worked as expected',
   '400': 'Bad Request	The request was unacceptable, often due to missing a required parameter',
   '401': 'Unauthorized	Invalid Access Token',
@@ -119,8 +119,8 @@ const Error: React.FC<ErrorProps> = ({ errorCode }) => {
         </div>
 
         <div>
-          <label>Message</label>
-          <input name="message" defaultValue={ERROR_CODE[errorCode]} readOnly />
+          <label htmlFor="message">Message</label>
+          <input id="message" name="message" defaultValue={ERROR_CODE[errorCode]} readOnly />
         </div>
 
         <div>

@@ -1,9 +1,8 @@
-import { cleanup } from '@testing-library/react';
-import { expect, afterEach } from 'vitest';
-import matchers from '@testing-library/jest-dom/matchers';
+import '@testing-library/jest-dom';
+import { server } from './src/mocks/server.js';
 
-expect.extend(matchers);
+beforeAll(() => server.listen());
 
-afterEach(() => {
-  cleanup();
-});
+afterEach(() => server.resetHandlers());
+
+afterAll(() => server.close());

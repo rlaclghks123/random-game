@@ -1,10 +1,11 @@
+import axios, { AxiosResponse } from 'axios';
+
 const fetchData = async (apiUrl: string) => {
   try {
-    const response = await fetch(apiUrl);
-    const json = await response.json();
-    return json;
+    const response: AxiosResponse = await axios(apiUrl);
+    return response;
   } catch (err) {
-    return err;
+    return err?.response;
   }
 };
 
