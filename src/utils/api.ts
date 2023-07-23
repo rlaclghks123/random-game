@@ -4,8 +4,8 @@ const fetchData = async (apiUrl: string) => {
   try {
     const response: AxiosResponse = await axios(apiUrl);
     return response;
-  } catch (err) {
-    return err?.response;
+  } catch (error: any) {
+    return error?.response;
   }
 };
 
