@@ -11,7 +11,7 @@ const resetHandler = (statusCode: number) => {
       `https://api.giphy.com/v1/gifs/search?q=people&api_key=${
         import.meta.env.VITE_GIPHY_API_KEY
       }&limit=50`,
-      (req, res, ctx) => {
+      (_, res, ctx) => {
         return res(
           ctx.status(statusCode),
           ctx.json({
