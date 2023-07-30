@@ -15,7 +15,7 @@ export const StyleContainer = styled.div`
   background-color: #000000a1;
 `;
 
-export const ModalBox = styled.div`
+export const ModalBox = styled.section`
   display: flex;
   flex-direction: column;
 
@@ -44,13 +44,13 @@ export const StyleCloseBtn = styled.button`
   }
 `;
 
-export const StyleHeader = styled.div`
+export const StyleHeader = styled.header`
   padding: 20px 0px;
   font-weight: 700;
   text-align: center;
 `;
 
-export const StyleMain = styled.div`
+export const StyleMain = styled.main`
   height: inherit;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -63,7 +63,7 @@ export const StyleUl = styled.ul`
   line-height: 20px;
 `;
 
-export const StyleLi = styled.ul`
+export const StyleLi = styled.li`
   margin: 40px 0px;
   font-family: Arial, Helvetica, sans-serif;
   opacity: 0.7;

@@ -16,21 +16,19 @@ interface IModal {
 
 const Modal = ({ offModal, title, data }: IModal) => {
   return (
-    <>
-      <StyleContainer onClick={offModal}>
-        <ModalBox>
-          <StyleCloseBtn onClick={offModal}>❌</StyleCloseBtn>
-          <StyleHeader>{title}</StyleHeader>
-          <StyleMain>
-            <StyleUl>
-              {data.map((item, i) => (
-                <StyleLi key={i}>{`- ${item.content}`}</StyleLi>
-              ))}
-            </StyleUl>
-          </StyleMain>
-        </ModalBox>
-      </StyleContainer>
-    </>
+    <StyleContainer onClick={offModal}>
+      <ModalBox>
+        <StyleCloseBtn onClick={offModal}>❌</StyleCloseBtn>
+        <StyleHeader>{title}</StyleHeader>
+        <StyleMain>
+          <StyleUl>
+            {data.map((item, i) => (
+              <StyleLi key={i}>{`- ${item.content}`}</StyleLi>
+            ))}
+          </StyleUl>
+        </StyleMain>
+      </ModalBox>
+    </StyleContainer>
   );
 };
 

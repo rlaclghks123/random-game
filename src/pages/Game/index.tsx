@@ -43,7 +43,7 @@ function Game() {
     setInputValue(e.target.value);
   };
 
-  const getRandomImg = (list: IImgList[]): IImgList | null => {
+  const getRandomImg = (list: IImgList[]): IImgList => {
     const randomIndex = Math.floor(Math.random() * list.length);
     return list[randomIndex];
   };
@@ -81,7 +81,9 @@ function Game() {
     <MainPage>
       <StyleHeader>
         <StyleTitle>
-          <Link to="/">복불복 게임</Link>
+          <Link to="/">
+            <h1>복불복 게임</h1>
+          </Link>
         </StyleTitle>
       </StyleHeader>
 
@@ -99,7 +101,9 @@ function Game() {
                 </StyleForm>
                 <StyleMessage>{'1부터 50까지의 숫자를 입력해주세요'}</StyleMessage>
               </StyleFormContainer>
-              {currentImg && <StyleImg src={currentImg.images?.original?.url} alt={'GIF'} />}
+              {currentImg && (
+                <StyleImg src={currentImg.images?.original?.url} alt={currentImg.title} />
+              )}
             </>
           )}
         </StyleMain>

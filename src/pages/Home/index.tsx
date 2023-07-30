@@ -2,7 +2,14 @@ import Modal from '../../components/Modal';
 import MainPage from '../../layout/MainPage';
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { StyleHeader, StyleTitle, StyleMain, StyleMoveBox, StyleModalBox } from './index.style';
+import {
+  StyleHeader,
+  StyleTitle,
+  StyleMain,
+  StyleMoveBox,
+  StyleModalBox,
+  StyleButton,
+} from './index.style';
 
 const Home = () => {
   const [isInstructionModal, setIsInstructionModal] = useState(false);
@@ -55,8 +62,12 @@ const Home = () => {
           <StyleModalBox>
             <Link to="/game">시작하기</Link>
           </StyleModalBox>
-          <StyleModalBox onClick={handleInstruction}>Guide</StyleModalBox>
-          <StyleModalBox onClick={handleFaq}>FAQ</StyleModalBox>
+          <StyleModalBox>
+            <StyleButton onClick={handleInstruction}>Guide</StyleButton>
+          </StyleModalBox>
+          <StyleModalBox>
+            <StyleButton onClick={handleFaq}>FAQ</StyleButton>
+          </StyleModalBox>
         </StyleMoveBox>
       </StyleMain>
       {isInstructionModal && (

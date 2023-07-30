@@ -87,3 +87,13 @@ export const StyleModalBox = styled.li`
     color: #cd8542;
   }
 `;
+
+export const StyleButton = styled.button`
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: inherit;
+  background-color: inherit;
+  color: inherit;
+  font-size: inherit;
+`;

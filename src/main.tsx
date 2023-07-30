@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle.tsx';
 import Routers from './Routers.tsx';
-// import initMocks from './mocks/index.ts';
+// import { worker } from './mocks/browser.ts';
 
 // if (process.env.NODE_ENV === 'development') {
-//   await initMocks();
+//   worker.start();
 // }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
