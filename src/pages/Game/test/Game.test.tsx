@@ -155,25 +155,12 @@ describe('1~50까지의 숫자를 입력시 count 및 img 테스트', () => {
     const formElement = screen.getByRole('form');
     fireEvent.submit(formElement);
 
-    await waitFor(() => {
-      expect(screen.getByText(3)).toBeInTheDocument();
-    });
+    await waitFor(() => expect(screen.getByText(3)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(2)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(1)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(0)).toBeInTheDocument());
 
-    await waitFor(() => {
-      expect(screen.getByText(2)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(1)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(0)).toBeInTheDocument();
-    });
-
-    await waitFor(async () => {
-      expect(await screen.findByAltText('GIF')).toBeInTheDocument();
-    });
+    await waitFor(async () => expect(await screen.findByRole('img')).toBeInTheDocument());
   });
 
   test('1~50까지의 숫자가 아닌 다른 값 "0" 입력시 카운트 시작 안됨 테스트', async () => {
