@@ -96,4 +96,5 @@ export const StyleButton = styled.button`
   background-color: inherit;
   color: inherit;
   font-size: inherit;
+  cursor: pointer;
 `;
