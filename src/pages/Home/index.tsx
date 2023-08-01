@@ -1,7 +1,8 @@
-import Modal from '../../components/Modal';
-import MainPage from '../../layout/MainPage';
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import Modal from '../../components/Modal';
+import MainPage from '../../layout/MainPage';
 import {
   StyleHeader,
   StyleTitle,
@@ -10,6 +11,14 @@ import {
   StyleModalBox,
   StyleButton,
 } from './index.style';
+import { HOME_LINK,
+GAME_LINK,
+RANDOM_GAME_TITLE,
+GAME_LINK_TITLE,
+GUIDE_TITLE,
+FAQ_TITLE,
+MODAL_INSTRUCTION_TITLE,
+MODAL_FAQ_TITLE, } from '../../components/constants/home';
 
 const Home = () => {
   const [isInstructionModal, setIsInstructionModal] = useState(false);
@@ -49,31 +58,33 @@ const Home = () => {
     },
   ];
 
+  
+
   return (
     <MainPage>
       <StyleHeader>
         <StyleTitle>
-          <Link to="/">복불복 게임</Link>
+          <Link to={HOME_LINK}>{RANDOM_GAME_TITLE}</Link>
         </StyleTitle>
       </StyleHeader>
 
       <StyleMain>
         <StyleMoveBox>
           <StyleModalBox>
-            <Link to="/game">시작하기</Link>
+            <Link to={GAME_LINK}>{GAME_LINK_TITLE}</Link>
           </StyleModalBox>
           <StyleModalBox>
-            <StyleButton onClick={handleInstruction}>Guide</StyleButton>
+            <StyleButton onClick={handleInstruction}>{GUIDE_TITLE}</StyleButton>
           </StyleModalBox>
           <StyleModalBox>
-            <StyleButton onClick={handleFaq}>FAQ</StyleButton>
+            <StyleButton onClick={handleFaq}>{FAQ_TITLE}</StyleButton>
           </StyleModalBox>
         </StyleMoveBox>
       </StyleMain>
       {isInstructionModal && (
-        <Modal offModal={offInstructionModal} title="복불복 게임 설명서" data={instructionData} />
+        <Modal offModal={offInstructionModal} title={MODAL_INSTRUCTION_TITLE} data={instructionData} />
       )}
-      {isFaqModal && <Modal offModal={offFaqModal} title="복불복 게임 FAQ" data={faqData} />}
+      {isFaqModal && <Modal offModal={offFaqModal} title={MODAL_FAQ_TITLE} data={faqData} />}
     </MainPage>
   );
 };
