@@ -1,11 +1,11 @@
-import { Children, FC } from 'react';
+import { Children} from 'react';
 import { StyleContainer, StyleGameBox, StyleHeader, StyleMain } from './index.style';
 
 interface MainPageProps {
   children?: React.ReactNode;
 }
 
-const MainPage: FC<MainPageProps> = ({ children: childrenProp }) => {
+const MainPage = ({ children: childrenProp }:MainPageProps) => {
   const [header, ...children] = Children.toArray(childrenProp);
   return (
     <StyleContainer>

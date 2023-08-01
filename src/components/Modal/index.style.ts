@@ -15,7 +15,7 @@ export const StyleContainer = styled.div`
   background-color: #000000a1;
 `;
 
-export const ModalBox = styled.section`
+export const StyleModalContainer = styled.section`
   display: flex;
   flex-direction: column;
 

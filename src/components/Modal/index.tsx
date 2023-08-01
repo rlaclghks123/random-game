@@ -1,6 +1,6 @@
 import {
   StyleContainer,
-  ModalBox,
+  StyleModalContainer,
   StyleCloseBtn,
   StyleHeader,
   StyleMain,
@@ -17,7 +17,7 @@ interface IModal {
 const Modal = ({ offModal, title, data }: IModal) => {
   return (
     <StyleContainer onClick={offModal}>
-      <ModalBox>
+      <StyleModalContainer>
         <StyleCloseBtn onClick={offModal}>❌</StyleCloseBtn>
         <StyleHeader>{title}</StyleHeader>
         <StyleMain>
@@ -27,7 +27,7 @@ const Modal = ({ offModal, title, data }: IModal) => {
             ))}
           </StyleUl>
         </StyleMain>
-      </ModalBox>
+      </StyleModalContainer>
     </StyleContainer>
   );
 };
