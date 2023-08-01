@@ -15,22 +15,29 @@ import {
   StyleCountBox,
   StyleImg,
 } from './index.style.ts';
+import { RANDOM_GAME_TITLE } from '../../components/constants/home.ts';
+import { INPUT_REG,
+ALERT_MESSAGE,
+HTTP_STATUS_OK,
+COUNT_START_NUMBER,
+COUNT_TIME,
+INPUT_REQUEST_MESSAGE, } from '../../components/constants/game.ts';
 
 function Game() {
   const [list, setList] = useState([]);
   const [currentImg, setCurrentImg] = useState<IImgList | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [isCounting, setIsCounting] = useState(false);
-  const [countdown, setCountdown] = useState(3);
+  const [countdown, setCountdown] = useState(COUNT_START_NUMBER);
   const [error, setError] = useState(null);
+
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const regex = /^[1-9]$|^[1-4][0-9]$|^50$/;
     const inputElement = e.currentTarget.elements[0] as HTMLInputElement;
 
-    if (!regex.test(inputElement.value)) {
-      alert('1에서 50까지의 숫자만 입력해주세요.');
+    if (!INPUT_REG.test(inputElement.value)) {
+      alert(ALERT_MESSAGE);
       setInputValue('');
       return;
     }
@@ -50,7 +57,7 @@ function Game() {
 
   const updateImg = async () => {
     const result = await fetchGifList();
-    if (result && result?.status !== 200) setError(result.status);
+    if (result && result?.status !== HTTP_STATUS_OK) setError(result.status);
     else setList(result?.data.data);
   };
 
@@ -63,13 +70,13 @@ function Game() {
       if (countdown === 0) {
         setCurrentImg(getRandomImg(list));
         setIsCounting(false);
-        setCountdown(3);
+        setCountdown(COUNT_START_NUMBER);
         return;
       }
 
       const timer = setTimeout(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000);
+      }, COUNT_TIME);
 
       return () => {
         clearTimeout(timer);
@@ -82,7 +89,7 @@ function Game() {
       <StyleHeader>
         <StyleTitle>
           <Link to="/">
-            <h1>복불복 게임</h1>
+            <h1>{RANDOM_GAME_TITLE}</h1>
           </Link>
         </StyleTitle>
       </StyleHeader>
@@ -99,7 +106,7 @@ function Game() {
                 <StyleForm onSubmit={handleSubmit} role="form">
                   <input role="input" value={inputValue} onChange={handleOnChange} maxLength={2} />
                 </StyleForm>
-                <StyleMessage>{'1부터 50까지의 숫자를 입력해주세요'}</StyleMessage>
+                <StyleMessage>{INPUT_REQUEST_MESSAGE}</StyleMessage>
               </StyleFormContainer>
               {currentImg && (
                 <StyleImg src={currentImg.images?.original?.url} alt={currentImg.title} />
