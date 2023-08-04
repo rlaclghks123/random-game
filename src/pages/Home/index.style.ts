@@ -20,7 +20,7 @@ export const StyleTitle = styled.div`
     text-align: center;
 
     &:hover {
-      color: #cd8542;
+      color: #a7642a;
     }
   }
 `;
@@ -56,13 +56,13 @@ export const StyleMoveBox = styled.ul`
     height: 50px;
 
     color: white;
-    background-color: #cd8542;
+    background-color: #a7642a;
     border-radius: 10px;
     cursor: pointer;
 
     &:hover {
       background-color: white;
-      color: #cd8542;
+      color: #a7642a;
     }
   }
 `;
@@ -76,7 +76,7 @@ export const StyleModalBox = styled.li`
   height: 50px;
 
   color: white;
-  background-color: #cd8542;
+  background-color: #a7642a;
   border-radius: 10px;
   cursor: pointer;
 
@@ -84,7 +84,7 @@ export const StyleModalBox = styled.li`
 
   &:hover {
     background-color: white;
-    color: #cd8542;
+    color: #a7642a;
   }
 `;
 

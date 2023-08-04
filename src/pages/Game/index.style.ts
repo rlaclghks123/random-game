@@ -23,7 +23,7 @@ export const StyleTitle = styled.div`
     text-align: center;
 
     &:hover {
-      color: #cd8542;
+      color: #a7642a;
     }
   }
 `;
@@ -53,14 +53,14 @@ export const StyleForm = styled.form`
     border: none;
     border-radius: 10px;
     color: white;
-    background-color: #cd8542;
+    background-color: #a7642a;
     cursor: pointer;
 
     &:focus {
       border: none;
       outline: none;
       background-color: white;
-      color: #cd8542;
+      color: #a7642a;
     }
   }
 `;
@@ -69,7 +69,7 @@ export const StyleMessage = styled.div`
   font-size: 12px;
   font-weight: 800;
 
-  color: #cd8542;
+  color: white;
 `;
 
 export const StyleCountBox = styled.div`
