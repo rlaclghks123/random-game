@@ -16,12 +16,14 @@ import {
   StyleImg,
 } from './index.style.ts';
 import { RANDOM_GAME_TITLE } from '../../components/constants/home.ts';
-import { INPUT_REG,
-ALERT_MESSAGE,
-HTTP_STATUS_OK,
-COUNT_START_NUMBER,
-COUNT_TIME,
-INPUT_REQUEST_MESSAGE, } from '../../components/constants/game.ts';
+import {
+  INPUT_REG,
+  ALERT_MESSAGE,
+  HTTP_STATUS_OK,
+  COUNT_START_NUMBER,
+  COUNT_TIME,
+  INPUT_REQUEST_MESSAGE,
+} from '../../components/constants/game.ts';
 
 function Game() {
   const [list, setList] = useState([]);
@@ -30,7 +32,6 @@ function Game() {
   const [isCounting, setIsCounting] = useState(false);
   const [countdown, setCountdown] = useState(COUNT_START_NUMBER);
   const [error, setError] = useState(null);
-
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -94,27 +95,23 @@ function Game() {
         </StyleTitle>
       </StyleHeader>
 
-      {error ? (
-        <Error errorCode={error} />
-      ) : (
-        <StyleMain>
-          {isCounting ? (
-            <StyleCountBox>{countdown}</StyleCountBox>
-          ) : (
-            <>
-              <StyleFormContainer>
-                <StyleForm onSubmit={handleSubmit} role="form">
-                  <input role="input" value={inputValue} onChange={handleOnChange} maxLength={2} />
-                </StyleForm>
-                <StyleMessage>{INPUT_REQUEST_MESSAGE}</StyleMessage>
-              </StyleFormContainer>
-              {currentImg && (
-                <StyleImg src={currentImg.images?.original?.url} alt={currentImg.title} />
-              )}
-            </>
-          )}
-        </StyleMain>
-      )}
+      <StyleMain>
+        {error && <Error errorCode={error} />}
+        {!error && isCounting && <StyleCountBox>{countdown}</StyleCountBox>}
+        {!error && !isCounting && (
+          <>
+            <StyleFormContainer>
+              <StyleForm onSubmit={handleSubmit} role="form">
+                <input role="input" value={inputValue} onChange={handleOnChange} maxLength={2} />
+              </StyleForm>
+              <StyleMessage>{INPUT_REQUEST_MESSAGE}</StyleMessage>
+            </StyleFormContainer>
+            {currentImg && (
+              <StyleImg src={currentImg.images?.original?.url} alt={currentImg.title} />
+            )}
+          </>
+        )}
+      </StyleMain>
     </MainPage>
   );
 }
