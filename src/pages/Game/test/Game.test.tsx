@@ -4,6 +4,7 @@ import Game from '../index';
 import { ERROR_CODE } from '../../../components/Error/index';
 import { rest } from 'msw';
 import { server } from '../../../mocks/server';
+import { INPUT_REQUEST_MESSAGE } from '../../../components/constants/game';
 
 const resetHandler = (statusCode: number) => {
   return server.resetHandlers(
@@ -149,12 +150,11 @@ describe('1~50까지의 숫자를 입력시 count 및 img 테스트', () => {
       </MemoryRouter>
     );
 
-    const inputElement = screen.getByRole('input');
+    const inputElement = screen.getByLabelText(INPUT_REQUEST_MESSAGE);
     fireEvent.change(inputElement, { target: { value: '5' } });
 
     const formElement = screen.getByRole('form');
     fireEvent.submit(formElement);
-
     await waitFor(() => expect(screen.getByText(3)).toBeInTheDocument());
     await waitFor(() => expect(screen.getByText(2)).toBeInTheDocument());
     await waitFor(() => expect(screen.getByText(1)).toBeInTheDocument());
@@ -170,7 +170,7 @@ describe('1~50까지의 숫자를 입력시 count 및 img 테스트', () => {
       </MemoryRouter>
     );
 
-    const inputElement = screen.getByRole('input');
+    const inputElement = screen.getByLabelText(INPUT_REQUEST_MESSAGE);
     fireEvent.change(inputElement, { target: { value: '0' } });
 
     const formElement = screen.getByRole('form');
@@ -188,7 +188,7 @@ describe('1~50까지의 숫자를 입력시 count 및 img 테스트', () => {
       </MemoryRouter>
     );
 
-    const inputElement = screen.getByRole('input');
+    const inputElement = screen.getByLabelText(INPUT_REQUEST_MESSAGE);
     fireEvent.change(inputElement, { target: { value: '' } });
 
     const formElement = screen.getByRole('form');
@@ -206,7 +206,7 @@ describe('1~50까지의 숫자를 입력시 count 및 img 테스트', () => {
       </MemoryRouter>
     );
 
-    const inputElement = screen.getByRole('input');
+    const inputElement = screen.getByLabelText(INPUT_REQUEST_MESSAGE);
     fireEvent.change(inputElement, { target: { value: 'O' } });
 
     const formElement = screen.getByRole('form');

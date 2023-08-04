@@ -11,6 +11,7 @@ import {
   StyleMain,
   StyleFormContainer,
   StyleForm,
+  StyleInputBox,
   StyleMessage,
   StyleCountBox,
   StyleImg,
@@ -102,9 +103,17 @@ function Game() {
           <>
             <StyleFormContainer>
               <StyleForm onSubmit={handleSubmit} role="form">
-                <input role="input" value={inputValue} onChange={handleOnChange} maxLength={2} />
+                <StyleInputBox>
+                  <StyleMessage htmlFor="input">{INPUT_REQUEST_MESSAGE}</StyleMessage>
+                  <input
+                    type="text"
+                    id="input"
+                    value={inputValue}
+                    onChange={handleOnChange}
+                    maxLength={2}
+                  />
+                </StyleInputBox>
               </StyleForm>
-              <StyleMessage>{INPUT_REQUEST_MESSAGE}</StyleMessage>
             </StyleFormContainer>
             {currentImg && (
               <StyleImg src={currentImg.images?.original?.url} alt={currentImg.title} />

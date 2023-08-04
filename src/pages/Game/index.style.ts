@@ -65,7 +65,13 @@ export const StyleForm = styled.form`
   }
 `;
 
-export const StyleMessage = styled.div`
+export const StyleInputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const StyleMessage = styled.label`
   font-size: 12px;
   font-weight: 800;
 
