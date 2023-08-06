@@ -1,3 +1,2 @@
 User-agent: *
 Allow: /
-Sitemap: https://random-game-chiman.vercel.app/sitemap.xml
