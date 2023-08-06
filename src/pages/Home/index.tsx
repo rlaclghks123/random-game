@@ -11,14 +11,16 @@ import {
   StyleModalBox,
   StyleButton,
 } from './index.style';
-import { HOME_LINK,
-GAME_LINK,
-RANDOM_GAME_TITLE,
-GAME_LINK_TITLE,
-GUIDE_TITLE,
-FAQ_TITLE,
-MODAL_INSTRUCTION_TITLE,
-MODAL_FAQ_TITLE, } from '../../components/constants/home';
+import {
+  HOME_LINK,
+  GAME_LINK,
+  RANDOM_GAME_TITLE,
+  GAME_LINK_TITLE,
+  GUIDE_TITLE,
+  FAQ_TITLE,
+  MODAL_INSTRUCTION_TITLE,
+  MODAL_FAQ_TITLE,
+} from '../../components/constants/home';
 
 const Home = () => {
   const [isInstructionModal, setIsInstructionModal] = useState(false);
@@ -48,6 +50,11 @@ const Home = () => {
       content:
         '복불복 게임 규칙은 어떻게 되나요? → 사용자가 정한 규칙에 따라 사진 속 사람이 많이 나오거나 적게 나온 사람이 당첨입니다.',
     },
+
+    {
+      content:
+        '숫자를 입력 후 키보드에서 "완료" 혹은 "done" 버튼을 누를 경우 제출이 되지 않습니다.',
+    },
     {
       content:
         '사람 얼굴이 반만 나왔어요! → 복불복 게임 전 미리 규칙을 정하고 게임을 하시는걸 추천합니다. 예를들어 사람 얼굴이 80% 이상 나오면 OK',
@@ -57,8 +64,6 @@ const Home = () => {
       content: '사람이 아닌 캐릭터는 어떻게 되나요? → 캐릭터는 인정하지 않습니다. ',
     },
   ];
-
-  
 
   return (
     <MainPage>
@@ -82,7 +87,11 @@ const Home = () => {
         </StyleMoveBox>
       </StyleMain>
       {isInstructionModal && (
-        <Modal offModal={offInstructionModal} title={MODAL_INSTRUCTION_TITLE} data={instructionData} />
+        <Modal
+          offModal={offInstructionModal}
+          title={MODAL_INSTRUCTION_TITLE}
+          data={instructionData}
+        />
       )}
       {isFaqModal && <Modal offModal={offFaqModal} title={MODAL_FAQ_TITLE} data={faqData} />}
     </MainPage>

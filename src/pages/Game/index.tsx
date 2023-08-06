@@ -15,6 +15,7 @@ import {
   StyleMessage,
   StyleCountBox,
   StyleImg,
+  StyleButton,
 } from './index.style.ts';
 import { RANDOM_GAME_TITLE } from '../../components/constants/home.ts';
 import {
@@ -112,6 +113,8 @@ function Game() {
                     onChange={handleOnChange}
                     maxLength={2}
                   />
+
+                  <StyleButton>입력</StyleButton>
                 </StyleInputBox>
               </StyleForm>
             </StyleFormContainer>

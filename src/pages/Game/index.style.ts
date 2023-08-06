@@ -40,6 +40,7 @@ export const StyleMain = styled.div`
 export const StyleFormContainer = styled.div``;
 
 export const StyleForm = styled.form`
+  position: relative;
   display: flex;
   justify-content: center;
 
@@ -53,7 +54,6 @@ export const StyleForm = styled.form`
     border: none;
     border-radius: 10px;
     color: white;
-    background-color: #a7642a;
     cursor: pointer;
 
     &:focus {
@@ -71,10 +71,26 @@ export const StyleInputBox = styled.div`
   gap: 16px;
 `;
 
+export const StyleButton = styled.button`
+  position: absolute;
+  right: 5px;
+  top: 59%;
+  margin-left: 5px;
+  border: none;
+  border-radius: 5px;
+  color: #225b38;
+  background-color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #225b38;
+    color: white;
+  }
+`;
+
 export const StyleMessage = styled.label`
   font-size: 12px;
   font-weight: 800;
-
   color: white;
 `;
 
