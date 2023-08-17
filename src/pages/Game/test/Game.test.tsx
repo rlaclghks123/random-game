@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Game from '../index';
+import Game, { checkInput } from '../index';
 import { ERROR_CODE } from '../../../components/Error/index';
 import { rest } from 'msw';
 import { server } from '../../../mocks/server';
@@ -139,6 +139,28 @@ describe('Giphy API test', () => {
 
     const inputElement = await screen.findByLabelText('Message');
     expect(inputElement).toHaveValue(ERROR_CODE[STATUS_CODE]);
+  });
+});
+
+describe('사용자 입력값 테스트', () => {
+  test('범위안의 값 5일경우 테스트', () => {
+    expect(checkInput('5')).toBe(true);
+  });
+
+  test('범위안의 값 50일경우 테스트', () => {
+    expect(checkInput('50')).toBe(true);
+  });
+
+  test('범위밖의 값 0일 경우 테스트', () => {
+    expect(checkInput('0')).toBe(false);
+  });
+
+  test('범위밖의 값 문자열 경우 테스트', () => {
+    expect(checkInput('five')).toBe(false);
+  });
+
+  test('범위밖의 값 문자 O일 경우 테스트', () => {
+    expect(checkInput('O')).toBe(false);
   });
 });
 

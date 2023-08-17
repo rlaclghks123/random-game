@@ -27,6 +27,10 @@ import {
   INPUT_REQUEST_MESSAGE,
 } from '../../components/constants/game.ts';
 
+export function checkInput(value: string) {
+  return INPUT_REG.test(value);
+}
+
 function Game() {
   const [list, setList] = useState([]);
   const [currentImg, setCurrentImg] = useState<IImgList | null>(null);
@@ -39,7 +43,7 @@ function Game() {
     e.preventDefault();
     const inputElement = e.currentTarget.elements[0] as HTMLInputElement;
 
-    if (!INPUT_REG.test(inputElement.value)) {
+    if (!checkInput(inputElement.value)) {
       alert(ALERT_MESSAGE);
       setInputValue('');
       return;
