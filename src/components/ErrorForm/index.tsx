@@ -66,7 +66,7 @@ interface ErrorProps {
   errorCode: number;
 }
 
-const Error: React.FC<ErrorProps> = ({ errorCode }) => {
+const ErrorForm = ({ errorCode }: ErrorProps) => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const navigate = useNavigate();
 
@@ -106,7 +106,6 @@ const Error: React.FC<ErrorProps> = ({ errorCode }) => {
             required
           />
         </div>
-
         <div>
           <label htmlFor="email">Email</label>
           <input
@@ -117,12 +116,10 @@ const Error: React.FC<ErrorProps> = ({ errorCode }) => {
             required
           />
         </div>
-
         <div>
           <label htmlFor="message">Message</label>
           <input id="message" name="message" defaultValue={ERROR_CODE[errorCode]} readOnly />
         </div>
-
         <div>
           <input type="submit" value="Send Message" />
         </div>
@@ -131,4 +128,4 @@ const Error: React.FC<ErrorProps> = ({ errorCode }) => {
   );
 };
 
-export default Error;
+export default ErrorForm;

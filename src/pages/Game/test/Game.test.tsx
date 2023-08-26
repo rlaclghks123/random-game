@@ -1,10 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Game, { checkInput } from '../index';
-import { ERROR_CODE } from '../../../components/Error/index';
+import Game from '../index';
+import { ERROR_CODE } from '../../../components/ErrorForm/index';
 import { rest } from 'msw';
 import { server } from '../../../mocks/server';
 import { INPUT_REQUEST_MESSAGE } from '../../../utils/constants/game';
+import { checkInput } from '../../../utils/inputUtil';
 
 const resetHandler = (statusCode: number) => {
   return server.resetHandlers(
