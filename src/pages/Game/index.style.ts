@@ -1,33 +1,5 @@
 import { styled } from 'styled-components';
 
-export const StyleHeader = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const StyleTitle = styled.div`
-  @media screen and (max-width: 320px) {
-    a {
-      font-size: 16px;
-    }
-  }
-
-  a {
-    font-size: 30px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', helvetica,
-      'Apple SD Gothic Neo', helvetica, '나눔바른고딕 옛한글', 'NanumBarunGothic YetHangul',
-      sans-serif;
-    color: white;
-    text-align: center;
-
-    &:hover {
-      color: #a7642a;
-    }
-  }
-`;
-
 export const StyleMain = styled.div`
   display: flex;
   flex-direction: column;

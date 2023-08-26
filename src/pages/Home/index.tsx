@@ -1,26 +1,18 @@
 import { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import Modal from '../../components/Modal';
 import MainPage from '../../layout/MainPage';
+import { StyleMain, StyleMoveBox, StyleModalBox, StyleButton } from './index.style';
 import {
-  StyleHeader,
-  StyleTitle,
-  StyleMain,
-  StyleMoveBox,
-  StyleModalBox,
-  StyleButton,
-} from './index.style';
-import {
-  HOME_LINK,
   GAME_LINK,
-  RANDOM_GAME_TITLE,
   GAME_LINK_TITLE,
   GUIDE_TITLE,
   FAQ_TITLE,
   MODAL_INSTRUCTION_TITLE,
   MODAL_FAQ_TITLE,
 } from '../../components/constants/home';
+import Header from '../../components/Header';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [isInstructionModal, setIsInstructionModal] = useState(false);
@@ -67,11 +59,7 @@ const Home = () => {
 
   return (
     <MainPage>
-      <StyleHeader>
-        <StyleTitle>
-          <Link to={HOME_LINK}>{RANDOM_GAME_TITLE}</Link>
-        </StyleTitle>
-      </StyleHeader>
+      <Header />
 
       <StyleMain>
         <StyleMoveBox>
@@ -86,6 +74,7 @@ const Home = () => {
           </StyleModalBox>
         </StyleMoveBox>
       </StyleMain>
+
       {isInstructionModal && (
         <Modal
           offModal={offInstructionModal}

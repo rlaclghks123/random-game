@@ -1,13 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import MainPage from '../../layout/MainPage/index.tsx';
 import { fetchGifList } from '../../utils/api.ts';
 import { IImgList } from '../../types/types.ts';
 import Error from '../../components/Error/index.tsx';
 
 import {
-  StyleHeader,
-  StyleTitle,
   StyleMain,
   StyleFormContainer,
   StyleForm,
@@ -17,7 +14,6 @@ import {
   StyleImg,
   StyleButton,
 } from './index.style.ts';
-import { RANDOM_GAME_TITLE } from '../../components/constants/home.ts';
 import {
   INPUT_REG,
   ALERT_MESSAGE,
@@ -26,6 +22,7 @@ import {
   COUNT_TIME,
   INPUT_REQUEST_MESSAGE,
 } from '../../components/constants/game.ts';
+import Header from '../../components/Header/index.js';
 
 export function checkInput(value: string) {
   return INPUT_REG.test(value);
@@ -93,13 +90,7 @@ function Game() {
 
   return (
     <MainPage>
-      <StyleHeader>
-        <StyleTitle>
-          <Link to="/">
-            <h1>{RANDOM_GAME_TITLE}</h1>
-          </Link>
-        </StyleTitle>
-      </StyleHeader>
+      <Header />
 
       <StyleMain>
         {error && <Error errorCode={error} />}
