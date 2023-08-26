@@ -1,8 +1,11 @@
 import { useCallback, useState } from 'react';
 
-import Modal from '../../components/Modal';
 import MainPage from '../../layout/MainPage';
-import { StyleMain, StyleMoveBox, StyleModalBox, StyleButton } from './index.style';
+
+import Modal from '../../components/Modal';
+import Header from '../../components/Header';
+import LinkBtn from '../../components/LinkBtn';
+import ModalBtn from '../../components/ModalBtn';
 import {
   GAME_LINK,
   GAME_LINK_TITLE,
@@ -11,16 +14,11 @@ import {
   MODAL_INSTRUCTION_TITLE,
   MODAL_FAQ_TITLE,
 } from '../../components/constants/home';
-import Header from '../../components/Header';
-import { Link } from 'react-router-dom';
+import { StyleMain, StyleMoveBox } from './index.style';
 
 const Home = () => {
   const [isInstructionModal, setIsInstructionModal] = useState(false);
   const [isFaqModal, setIsFaqModal] = useState(false);
-
-  const handleInstruction = () => setIsInstructionModal(true);
-
-  const handleFaq = () => setIsFaqModal(true);
 
   const offInstructionModal = useCallback((e: React.MouseEvent<HTMLElement>) => {
     if (e.currentTarget === e.target) setIsInstructionModal(false);
@@ -63,15 +61,9 @@ const Home = () => {
 
       <StyleMain>
         <StyleMoveBox>
-          <StyleModalBox>
-            <Link to={GAME_LINK}>{GAME_LINK_TITLE}</Link>
-          </StyleModalBox>
-          <StyleModalBox>
-            <StyleButton onClick={handleInstruction}>{GUIDE_TITLE}</StyleButton>
-          </StyleModalBox>
-          <StyleModalBox>
-            <StyleButton onClick={handleFaq}>{FAQ_TITLE}</StyleButton>
-          </StyleModalBox>
+          <LinkBtn link={GAME_LINK} title={GAME_LINK_TITLE} />
+          <ModalBtn onClick={() => setIsInstructionModal(true)} title={GUIDE_TITLE} />
+          <ModalBtn onClick={() => setIsFaqModal(true)} title={FAQ_TITLE} />
         </StyleMoveBox>
       </StyleMain>
 
