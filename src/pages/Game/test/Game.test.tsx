@@ -4,7 +4,7 @@ import Game, { checkInput } from '../index';
 import { ERROR_CODE } from '../../../components/Error/index';
 import { rest } from 'msw';
 import { server } from '../../../mocks/server';
-import { INPUT_REQUEST_MESSAGE } from '../../../components/constants/game';
+import { INPUT_REQUEST_MESSAGE } from '../../../utils/constants/game';
 
 const resetHandler = (statusCode: number) => {
   return server.resetHandlers(

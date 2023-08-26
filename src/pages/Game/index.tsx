@@ -21,7 +21,7 @@ import {
   COUNT_START_NUMBER,
   COUNT_TIME,
   INPUT_REQUEST_MESSAGE,
-} from '../../components/constants/game.ts';
+} from '../../utils/constants/game.js';
 import Header from '../../components/Header/index.js';
 
 export function checkInput(value: string) {

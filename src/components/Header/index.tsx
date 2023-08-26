@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { HOME_LINK, RANDOM_GAME_TITLE } from '../constants/home';
+import { HOME_LINK, RANDOM_GAME_TITLE } from '../../utils/constants/home';
 
 export const StyleHeader = styled.div`
   padding: 15px;
