@@ -1,5 +1,5 @@
 export interface IImgList {
-  title: string;
+  title?: string;
   images?: {
     original?: {
       url: string;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import MainPage from '../../layout/MainPage/index.tsx';
 import { fetchGifList } from '../../utils/api.ts';
 import { IImgList } from '../../types/types.ts';
@@ -11,7 +11,7 @@ import SearchImage from '../../components/SearchImage/index.js';
 
 function Game() {
   const [list, setList] = useState([]);
-  const [currentImg, setCurrentImg] = useState<IImgList | null>(null);
+  const [currentImg, setCurrentImg] = useState<IImgList>({});
   const [isCounting, setIsCounting] = useState(false);
   const [countdown, setCountdown] = useState(COUNT_START_NUMBER);
   const [error, setError] = useState(null);
