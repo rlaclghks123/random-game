@@ -11,7 +11,7 @@ import SearchImage from '../../components/SearchImage/index.js';
 
 function Game() {
   const [list, setList] = useState([]);
-  const [currentImg, setCurrentImg] = useState<IImgList>({});
+  const [currentImg, setCurrentImg] = useState<IImgList | null>(null);
   const [isCounting, setIsCounting] = useState(false);
   const [countdown, setCountdown] = useState(COUNT_START_NUMBER);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ function Game() {
 
   const updateImg = async () => {
     const result = await fetchGifList();
-    if (result && result?.status !== HTTP_STATUS_OK) setError(result.status);
+    if (result?.status !== HTTP_STATUS_OK) setError(result.status);
     else setList(result?.data.data);
   };
 

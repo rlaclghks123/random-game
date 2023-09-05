@@ -7,7 +7,7 @@ import { IImgList } from '../../types/types';
 import { StyleForm, StyleInputBox, StyleButton, StyleMessage, StyleImg } from './index.style';
 
 interface Props {
-  currentImg: IImgList;
+  currentImg: IImgList | null;
   setIsCounting: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
